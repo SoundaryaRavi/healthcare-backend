@@ -82,6 +82,8 @@ Goal Tracker
     2. We can use Docker to build image and push the container to AWS. 
     3. We can use clusters for multiple servers
     4. We can use rate limitter and store the api hits in Redis
+    5. Use refresh tokens for continous access for the system
+    6. Use the Okta for login instead of JWT tokes.
 
 
 
