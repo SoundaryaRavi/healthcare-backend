@@ -8,9 +8,6 @@ const connectDB = require('./config/db'); // Import the database connection
 connectDB();
 
 const app = express();
-// const server = http.createServer(app);
-// const io = socketIo(server);
-
 const PORT = 3001;
 
 app.use(express.json());
@@ -28,18 +25,6 @@ app.use((req, res, next) => {
 
 app.use('/api', routes);
 
-// io.on('connection', (socket) => {
-//   console.log('A user connected');
-
-//   socket.on('sendMessage', (message) => {
-//     // Broadcast the message to all connected clients
-//     io.emit('receiveMessage', message);
-//   });
-
-//   socket.on('disconnect', () => {
-//     console.log('A user disconnected');
-//   });
-// });
 
 
 // Start the server

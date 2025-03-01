@@ -1,49 +1,44 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-// Define the User Schema
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true, // Name is required
-        trim: true, // Removes extra spaces
-    },
     email: {
         type: String,
-        required: true, // Email is required
-        unique: true, // Ensures email is unique
+        required: true,
+        unique: true,
         trim: true,
-        lowercase: true, // Converts email to lowercase
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address'], // Validates email format
-    },
-    age: {
-        type: Number,
-        required: true, // Age is required
-        min: [18, 'Age must be at least 18'], // Minimum age validation
-        max: [100, 'Age must be less than 100'], // Maximum age validation
+        lowercase: true,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address'],
     },
     password: {
         type: String,
-        required: true, // Password is required
-        minlength: [6, 'Password must be at least 6 characters long'], // Minimum password length
+        required: true,
+        minlength: [6, 'Password must be at least 6 characters long'],
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'], // Restrict role to 'user' or 'admin'
+        default: 'user', // Default role is 'user'
     },
     createdAt: {
         type: Date,
-        default: Date.now, // Automatically sets the creation date
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now, // Automatically sets the update date
+        default: Date.now,
     },
 });
 
-// Middleware to update the `updatedAt` field before saving
-userSchema.pre('save', function (next) {
-    this.updatedAt = Date.now();
+// Hash the password before saving the user
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next(); // Only hash if password is modified
+    const salt = await bcrypt.genSalt(10); // Generate a salt
+    this.password = await bcrypt.hash(this.password, salt); // Hash the password
     next();
 });
 
-// Create the User Model
+// Method to compare passwords
+userSchema.methods.comparePassword = async function (candidatePassword) {
+    return await bcrypt.compare(candidatePassword, this.password);
+};
+
 const User = mongoose.model('User', userSchema);
 
-// Export the User Model
 module.exports = User;
