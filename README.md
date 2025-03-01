@@ -30,6 +30,13 @@ Goal Tracker
         header - Autherization <token>
     6. PUT /users/:id
         {payload: name, age, health_issues: [], weight, height }
+    7. Adding goals POST /api/goalTracker
+         { activityName, activityValue }
+    8. Getting goal tracker for user GET /api/goalTracker
+    9. Get the tips for the user GET /api/tips
+          
+         
+
 
 
 # DB SCHEMA
@@ -58,7 +65,7 @@ Goal Tracker
     2. category: Enum ['steps', 'waterIntaken', 'sleep']
 
 
-# Scalability menssures: 
+# Scalability measures: 
     1. We have used stateless system so this server can be replicated.
     2. We used MongoDB which can be scalable horizontally.
     
