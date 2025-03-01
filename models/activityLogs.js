@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const activityLogsSchema = new mongoose.Schema({
     userId: {
-
+        type: Schema.Types.ObjectId, ref: 'User', required: true
     },
-    date: {
-
+    logType: {
+        type: Number
     },
-    content: {
-        
+    logContent: {
+        type: String
     }
 });
 
