@@ -21,7 +21,7 @@ Goal Tracker
     1. GET /users/:id 
         header - Autherization <token>
     2. POST /register
-        {payload: email, password}
+        {payload: email, password, role : (default patient)}
     3. POST /login
         {payload: email, password}
     4. GET /admin/:id
