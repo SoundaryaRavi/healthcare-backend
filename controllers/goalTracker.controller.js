@@ -1,7 +1,7 @@
 const { addGoalApi } = require('../api/goalTracker.api');
 const { getUser } = require("../services/user");
 
-export const addGoal = async (req, res) => {
+const addGoal = async (req, res) => {
     try {
         // Input validation
         if (!req.user && !req.body.activityName && !req.body.activityValue) {
@@ -19,7 +19,7 @@ export const addGoal = async (req, res) => {
     }
 }
 
-export const getTodayGoalTrackerforUser = async (req, res) => {
+const getTodayGoalTrackerforUser = async (req, res) => {
     try {
         const user = await getUser(req.user);
         if (!user) {
@@ -31,4 +31,8 @@ export const getTodayGoalTrackerforUser = async (req, res) => {
     catch (error) {
         throw error;
     }
+}
+
+module.exports = {
+   addGoal, getTodayGoalTrackerforUser
 }
