@@ -1,22 +1,37 @@
 const User = require('../models/index');
 
-const getUsers = async (req, res) => {
+
+const registerUser = async (req, res) => {
+  const { email, password, role } = req.body;
+
   try {
-    const users = await User.findAll();
-    res.json(users);
+      // Check if the user already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+          return res.status(400).json({ message: 'User already exists' });
+      }
+
+      // Create a new user
+      const newUser = new User({
+          email,
+          password,
+          role: role || 'patient', // Default role is 'user'
+      });
+
+      // Save the user to the database
+      await newUser.save();
+
+      // Respond with the created user (excluding the password)
+      res.status(201).json({
+          _id: newUser._id,
+          email: newUser.email,
+          role: newUser.role,
+          createdAt: newUser.createdAt,
+      });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+      console.error('Error registering user:', err);
+      res.status(500).json({ message: 'Server error' });
   }
 };
 
-const createUser = async (req, res) => {
-  const { name, email } = req.body;
-  try {
-    const newUser = await User.create({ name, email });
-    res.status(201).json(newUser);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-module.exports = { getUsers, createUser };
+module.exports = { registerUser };
