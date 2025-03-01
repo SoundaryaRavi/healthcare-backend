@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const goalTrackerSchema = new mongoose.Schema({
     activityName: { 

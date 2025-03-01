@@ -1,6 +1,6 @@
 const GoalTracker = require("../models/goalTracker");
 
-export const addGoalApi = async (data, userId) => {
+const addGoalApi = async (data, userId) => {
     try {
         return await GoalTracker.create({
             userId: userId,
@@ -13,7 +13,7 @@ export const addGoalApi = async (data, userId) => {
     }
 }
 
-export const getTodayGoalTrackerforUser = async (userId) => {
+const getTodayGoalTrackerforUser = async (userId) => {
     try {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0); 
@@ -45,4 +45,8 @@ export const getTodayGoalTrackerforUser = async (userId) => {
     catch (error) {
         throw error;
     }
+}
+
+module.exports = {
+    addGoalApi, getTodayGoalTrackerforUser
 }
