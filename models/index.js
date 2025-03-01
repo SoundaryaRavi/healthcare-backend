@@ -17,13 +17,14 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin'], // Restrict role to 'user' or 'admin'
+        enum: ['patient', 'admin'], // Restrict role to 'user' or 'admin'
         default: 'user', // Default role is 'user'
     },
     createdAt: {
         type: Date,
         default: Date.now,
     },
+    
 });
 
 // Hash the password before saving the user
