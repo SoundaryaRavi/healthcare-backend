@@ -24,7 +24,22 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    
+    age: {
+        type: Number,
+        min: [0, 'Age must be a positive number'],
+    },
+    health_issues: {
+        type: [String], // Array of strings
+        default: [],
+    },
+    weight: {
+        type: Number,
+        min: [0, 'Weight must be a positive number'],
+    },
+    height: {
+        type: Number,
+        min: [0, 'Height must be a positive number'],
+    },
 });
 
 // Hash the password before saving the user
