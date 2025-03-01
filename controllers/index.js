@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
       const token = jwt.sign(
         { userId: newUser._id, email: newUser.email, role: newUser.role },
         process.env.JWT_SECRET,
-        { expiresIn: '1h' } // Token expires in 1 hour
+        { expiresIn: '8h' } // Token expires in 1 hour
     );
 
       // Respond with the created user (excluding the password)
@@ -142,7 +142,7 @@ const fetchAllPatients = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { id } = req.params; // Get the user ID from the request parameters
-  const { name, age, health_issues, weight, height } = req.body; // Get the fields to update
+  const { first_name, age, health_issues, weight, height } = req.body; // Get the fields to update
 
   try {
       // Validate the ID
@@ -153,7 +153,7 @@ const updateUser = async (req, res) => {
       // Find the user by ID and update the fields
       const updatedUser = await User.findByIdAndUpdate(
           id,
-          { name, age, health_issues, weight, height },
+          { first_name, age, health_issues, weight, height },
           { new: true, runValidators: true } // Return the updated document and run schema validators
       ).select('-password'); // Exclude the password field from the response
 

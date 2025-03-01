@@ -21,7 +21,7 @@ router.get('/admin/:id/users', adminAuthMiddleware, fetchAllPatients);
 
 router.use('/goalTracker', goalTracker);
 
-router.put('users/:id', authMiddleware, updateUser);
+router.put('/users/:id', authMiddleware, updateUser);
 
 router.use("/tips", tips);
 

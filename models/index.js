@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: [6, 'Password must be at least 6 characters long'],
     },
+    first_name: {
+        type: String,
+        default: '',
+    },
     role: {
         type: String,
         enum: ['patient', 'admin'], // Restrict role to 'user' or 'admin'
