@@ -5,6 +5,7 @@ const goalTracker = require('./goalTracker');
 const { registerUser, loginUser, fetchUserById, fetchAdminById, fetchAllPatients, updateUser } = require('../controllers/index');
 const authMiddleware = require('../middlewares/auth');
 const adminAuthMiddleware = require('../middlewares/adminAuth');
+const tips = require("./tips");
 
 // Register a new user
 router.post('/register', registerUser);
@@ -21,6 +22,8 @@ router.get('/admin/:id/users', adminAuthMiddleware, fetchAllPatients);
 router.use('/goalTracker', goalTracker);
 
 router.put('/users/:id', authMiddleware, updateUser);
+
+router.use("/tips", tips);
 
 module.exports = router;
 

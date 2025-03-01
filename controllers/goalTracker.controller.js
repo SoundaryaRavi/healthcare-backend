@@ -25,7 +25,7 @@ const getTodayGoalTrackerforUser = async (req, res) => {
         if (!user) {
             return res.status(400).json({ message: "User doesn't exist" });
         }
-        const todayGoals = await getTodayGoalTrackerforUser(user);
+        const todayGoals = await getTodayGoalTrackerforUser(req.user);
         return res.status(200).json(todayGoals);
     }
     catch (error) {

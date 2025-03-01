@@ -13,6 +13,6 @@ const activityLogsSchema = new mongoose.Schema({
     }
 });
 
-const Activitylogs = mongoose.model('Reminder', activityLogsSchema);
+const ActivityLogs = mongoose.model('ActivityLog', activityLogsSchema);
 
-module.exports = Activitylogs;
+module.exports = ActivityLogs;
