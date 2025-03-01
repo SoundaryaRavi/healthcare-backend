@@ -140,7 +140,35 @@ const fetchAllPatients = async (req, res) => {
     }
 };
 
-// module.exports = { fetchAllPatients };
+const updateUser = async (req, res) => {
+  const { id } = req.params; // Get the user ID from the request parameters
+  const { name, age, health_issues, weight, height } = req.body; // Get the fields to update
+
+  try {
+      // Validate the ID
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid user ID' });
+      }
+
+      // Find the user by ID and update the fields
+      const updatedUser = await User.findByIdAndUpdate(
+          id,
+          { name, age, health_issues, weight, height },
+          { new: true, runValidators: true } // Return the updated document and run schema validators
+      ).select('-password'); // Exclude the password field from the response
+
+      if (!updatedUser) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Return the updated user data
+      res.status(200).json(updatedUser);
+  } catch (err) {
+      console.error('Error updating user:', err);
+      res.status(500).json({ message: 'Server error' });
+  }
+};
 
 
-module.exports = { registerUser, loginUser, fetchUserById, fetchAdminById, fetchAllPatients };
+
+module.exports = { registerUser, loginUser, fetchUserById, fetchAdminById, fetchAllPatients, updateUser };

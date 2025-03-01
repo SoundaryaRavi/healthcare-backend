@@ -18,4 +18,18 @@ Goal Tracker
 
 # API 
 
+    1. GET /users/:id 
+        header - Autherization <token>
+    2. POST /register
+        {payload: email, password}
+    3. POST /login
+        {payload: email, password}
+    4. GET /admin/:id
+        header - Autherization <token>
+    5. GET /admin/:id/users
+        header - Autherization <token>
+    6. PUT /users/:id
+        {payload: name, age, health_issues: [], weight, height }
+
+
 
