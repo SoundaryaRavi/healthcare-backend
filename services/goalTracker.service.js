@@ -1,0 +1,1 @@
+const GoalTracker = require("../models/goalTracker");
